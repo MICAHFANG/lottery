@@ -4,7 +4,7 @@ body {
 }
 
 body {
-  background: linear-gradient(to bottom, #131313 0%, #02101c 100%);
+  background: linear-gradient(to bottom, #b78282 0%, #590325 100%);
   margin: 0;
   font-family: Helvetica, sans-serif;
   overflow: hidden;
@@ -58,16 +58,16 @@ a {
 .element {
   width: 12vh;
   height: 16vh;
-  box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
-  border: 1px solid rgba(127, 255, 255, 0.25);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+  border: 1px solid rgba(255, 146, 127, 0.25);
   text-align: center;
   cursor: default;
   transition: background-color 0.3s ease-in;
 }
 
 .element:hover {
-  box-shadow: 0 0 12px rgba(0, 255, 255, 0.75);
-  border: 1px solid rgba(127, 255, 255, 0.75);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.75);
+  border: 1px solid rgba(255, 127, 127, 0.75);
 }
 
 .element .company {
@@ -76,7 +76,7 @@ a {
   right: 0;
   width: 100%;
   font-size: 2vh;
-  color: rgba(127, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .element .name {
@@ -87,7 +87,7 @@ a {
   font-size: 2.9vh;
   font-weight: bold;
   color: rgba(255, 255, 255, 0.75);
-  text-shadow: 0 0 1vh rgba(0, 255, 255, 0.95);
+  text-shadow: 0 0 1vh rgba(239, 73, 73, 0.95);
 }
 
 .element .details {
@@ -96,13 +96,13 @@ a {
   left: 0;
   right: 0;
   font-size: 1.6vh;
-  color: rgba(127, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 button {
-  color: rgba(127, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
   background: transparent;
-  outline: 1px solid rgba(127, 255, 255, 0.75);
+  outline: 1px solid #ffffffbf;
   border: 0;
   padding: 1.6vh 4vh;
   margin: 0 4.6vh;
@@ -112,12 +112,13 @@ button {
 }
 
 button:hover {
-  background-color: rgba(0, 255, 255, 0.5);
+  transition: background 300ms;
+  background-color: rgba(250, 149, 149, 0.5);
 }
 
 button:active {
   color: #000000;
-  background-color: rgba(0, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 .highlight {
@@ -136,9 +137,14 @@ button:active {
 
 .prize.element {
   transition: background-color 1.5s ease-in 0.3s;
-  background-color: rgba(253, 105, 0, 0.85) !important;
-  box-shadow: 0 0 12px rgba(253, 105, 0, 0.95);
+  background-color: rgba(197, 45, 45, 0.85) !important;
+  box-shadow: 0 0 12px rgba(248, 127, 127, 0.95);
 }
+
+.prize.element {
+  font-size: 14px;
+}
+
 
 .prize .company,
 .prize .details,
@@ -161,10 +167,10 @@ button:active {
   line-height: 2.2vh;
   border-radius: 1vh;
   box-sizing: border-box;
-  background-color: rgba(0, 127, 127, 0.37);
-  box-shadow: 0 0 4px rgba(0, 255, 255, 0.5);
-  border: 1px solid rgba(127, 255, 255, 0.25);
-  color: rgba(127, 255, 255, 0.75);
+  background-color: rgba(255, 182, 182, 0.37);
+  box-shadow: 0 0 4px rgba(255, 0, 81, 0.5);
+  border: 1px solid rgba(255, 127, 127, 0.25);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .dan-mu.active {
@@ -193,9 +199,9 @@ button:active {
   justify-content: center;
   border-radius: 4px;
   flex-wrap: nowrap;
-  background-color: rgba(0, 127, 127, 0.37);
-  border: 1px solid rgba(127, 255, 255, 0.25);
-  color: rgba(127, 255, 255, 0.75);
+  background-color: rgba(255, 182, 182, 0.37);
+  border: 1px solid rgba(255, 127, 140, 0.25);
+  color: rgba(255, 127, 127, 0.75);
   width: 30vh;
   height: 10vh;
   box-sizing: border-box;
@@ -208,7 +214,7 @@ button:active {
   margin-right: 1.2vh;
   border-radius: 50%;
   background-color: #fff;
-  text-shadow: 0 0 1vh rgba(0, 255, 255, 0.95);
+  text-shadow: 0 0 1vh rgba(125, 2, 2, 0.95);
   overflow: hidden;
 }
 
@@ -341,7 +347,7 @@ button:active {
 }
 
 .shine {
-  box-shadow: 0 0 15px 0 rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 15px 0 rgba(169, 112, 112, 0.5);
   transform: scale(1.2);
   transform-origin: left center;
   position: relative;
@@ -374,7 +380,7 @@ button:active {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
+  background: linear-gradient(90deg, transparent, #e48686);
   animation: animate1 1s linear infinite
 }
 
@@ -394,7 +400,7 @@ button:active {
   right: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
+  background: linear-gradient(180deg, transparent, #e48686);
   animation: animate2 1s linear infinite;
   animation-delay: .25s
 }
@@ -415,7 +421,7 @@ button:active {
   right: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
+  background: linear-gradient(270deg, transparent, #e48686);
   animation: animate3 1s linear infinite;
   animation-delay: .50s
 }
@@ -436,7 +442,7 @@ button:active {
   left: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
+  background: linear-gradient(360deg, transparent, #e48686);
   animation: animate4 1s linear infinite;
   animation-delay: .75s
 }
@@ -551,7 +557,7 @@ button:active {
 
 #lottery {
   animation: breath 1.6s linear infinite;
-  box-shadow: 0px 0px 15px rgb(127 255 255 / 75%);
+  box-shadow: 0px 0px 15px rgba(237, 162, 166, 0.462);
 }
 
 @keyframes breath {

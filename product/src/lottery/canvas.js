@@ -67,19 +67,16 @@
     var pixelX, pixelY, pixelRadius;
 
     // Resize to the screen
-    if (
-      canvas.width != window.innerWidth ||
-      canvas.width != window.innerWidth
-    ) {
+    if (canvas.width != window.innerWidth || canvas.width != window.innerWidth) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       initializeStars();
     }
     if (warp == 0) {
-      c.fillStyle = "rgba(0,10,20,1)";
+      c.fillStyle = "rgba(3, 7, 30, 0.85)";
       c.fillRect(0, 0, canvas.width, canvas.height);
     }
-    c.fillStyle = "rgba(209, 255, 255, " + radius + ")";
+    c.fillStyle = "rgba(206, 206, 206, " + radius + ")";
     for (i = 0; i < numStars; i++) {
       star = stars[i];
 
@@ -90,7 +87,7 @@
       pixelRadius = 1 * (focalLength / star.z);
 
       c.fillRect(pixelX, pixelY, pixelRadius, pixelRadius);
-      c.fillStyle = "rgba(209, 255, 255, " + star.o + ")";
+      c.fillStyle = "rgba(206, 206, 206, " + star.o + ")";
       //c.fill();
     }
   }

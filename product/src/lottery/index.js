@@ -1,13 +1,7 @@
 import "./index.css";
 import "../css/animate.min.css";
 import "./canvas.js";
-import {
-  addQipao,
-  setPrizes,
-  showPrizeList,
-  setPrizeData,
-  resetPrize
-} from "./prizeList";
+import { addQipao, setPrizes, showPrizeList, setPrizeData, resetPrize } from "./prizeList";
 import { NUMBER_MATRIX } from "./config.js";
 
 const ROTATE_TIME = 3000;
@@ -18,7 +12,7 @@ let TOTAL_CARDS,
   btns = {
     enter: document.querySelector("#enter"),
     lotteryBar: document.querySelector("#lotteryBar"),
-    lottery: document.querySelector("#lottery")
+    lottery: document.querySelector("#lottery"),
   },
   prizes,
   EACH_COUNT,
@@ -36,7 +30,7 @@ let camera,
   threeDCards = [],
   targets = {
     table: [],
-    sphere: []
+    sphere: [],
   };
 
 let rotateObj;
@@ -47,7 +41,7 @@ let selectedCardIndex = [],
     prizes: [], //奖品信息
     users: [], //所有人员
     luckyUsers: {}, //已中奖人员
-    leftUsers: [] //未中奖人员
+    leftUsers: [], //未中奖人员
   },
   interval,
   // 当前抽的奖项，从最低奖开始抽，直到抽到大奖
@@ -82,11 +76,7 @@ function initAll() {
 
       let prizeIndex = basicData.prizes.length - 1;
       for (; prizeIndex > -1; prizeIndex--) {
-        if (
-          data.luckyData[prizeIndex] &&
-          data.luckyData[prizeIndex].length >=
-            basicData.prizes[prizeIndex].count
-        ) {
+        if (data.luckyData[prizeIndex] && data.luckyData[prizeIndex].length >= basicData.prizes[prizeIndex].count) {
           continue;
         }
         currentPrizeIndex = prizeIndex;
@@ -97,7 +87,7 @@ function initAll() {
       showPrizeList(currentPrizeIndex);
       let curLucks = basicData.luckyUsers[currentPrize.type];
       setPrizeData(currentPrizeIndex, curLucks ? curLucks.length : 0, true);
-    }
+    },
   });
 
   window.AJAX({
@@ -109,7 +99,7 @@ function initAll() {
       // startMaoPao();
       animate();
       shineCard();
-    }
+    },
   });
 }
 
@@ -124,15 +114,10 @@ function initCards() {
     totalMember = member.length,
     position = {
       x: (140 * COLUMN_COUNT - 20) / 2,
-      y: (180 * ROW_COUNT - 20) / 2
+      y: (180 * ROW_COUNT - 20) / 2,
     };
 
-  camera = new THREE.PerspectiveCamera(
-    40,
-    window.innerWidth / window.innerHeight,
-    1,
-    10000
-  );
+  camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
   camera.position.z = 3000;
 
   scene = new THREE.Scene();
@@ -140,12 +125,7 @@ function initCards() {
   for (let i = 0; i < ROW_COUNT; i++) {
     for (let j = 0; j < COLUMN_COUNT; j++) {
       isBold = HIGHLIGHT_CELL.includes(j + "-" + i);
-      var element = createCard(
-        member[index % length],
-        isBold,
-        index,
-        showTable
-      );
+      var element = createCard(member[index % length], isBold, index, showTable);
 
       var object = new THREE.CSS3DObject(element);
       object.position.x = Math.random() * 4000 - 2000;
@@ -236,9 +216,7 @@ function bindEvent() {
         break;
       // 重置
       case "reset":
-        let doREset = window.confirm(
-          "是否确认重置数据，重置后，当前已抽的奖项全部清空？"
-        );
+        let doREset = window.confirm("是否确认重置数据，重置后，当前已抽的奖项全部清空？");
         if (!doREset) {
           return;
         }
@@ -263,7 +241,7 @@ function bindEvent() {
         saveData();
         //更新剩余抽奖数目的数据显示
         changePrize();
-        resetCard().then(res => {
+        resetCard().then((res) => {
           // 抽奖
           lottery();
         });
@@ -280,15 +258,15 @@ function bindEvent() {
         setLotteryStatus(true);
         // 重新抽奖则直接进行抽取，不对上一次的抽奖数据进行保存
         // 抽奖
-        resetCard().then(res => {
+        resetCard().then((res) => {
           // 抽奖
           lottery();
         });
         break;
       // 导出抽奖结果
       case "save":
-        saveData().then(res => {
-          resetCard().then(res => {
+        saveData().then((res) => {
+          resetCard().then((res) => {
             // 将之前的记录置空
             currentLuckys = [];
           });
@@ -341,26 +319,25 @@ function createCard(user, isBold, id, showTable) {
     }
   } else {
     element.className = "element";
-    element.style.backgroundColor =
-      "rgba(0,127,127," + (Math.random() * 0.7 + 0.25) + ")";
+    element.style.backgroundColor = "rgba(106, 4, 15," + (Math.random() * 0.7 + 0.25) + ")";
   }
   //添加公司标识
   element.appendChild(createElement("company", COMPANY));
 
-  element.appendChild(createElement("name", user[1]));
+  // element.appendChild(createElement("name", user[1]));
 
   element.appendChild(createElement("details", user[0] + "<br/>" + user[2]));
   return element;
 }
 
 function removeHighlight() {
-  document.querySelectorAll(".highlight").forEach(node => {
+  document.querySelectorAll(".highlight").forEach((node) => {
     node.classList.remove("highlight");
   });
 }
 
 function addHighlight() {
-  document.querySelectorAll(".lightitem").forEach(node => {
+  document.querySelectorAll(".lightitem").forEach((node) => {
     node.classList.add("highlight");
   });
 }
@@ -379,7 +356,7 @@ function transform(targets, duration) {
         {
           x: target.position.x,
           y: target.position.y,
-          z: target.position.z
+          z: target.position.z,
         },
         Math.random() * duration + duration
       )
@@ -391,7 +368,7 @@ function transform(targets, duration) {
         {
           x: target.rotation.x,
           y: target.rotation.y,
-          z: target.rotation.z
+          z: target.rotation.z,
         },
         Math.random() * duration + duration
       )
@@ -431,7 +408,7 @@ function rotateBall() {
     rotateObj
       .to(
         {
-          y: Math.PI * 6 * ROTATE_LOOP
+          y: Math.PI * 6 * ROTATE_LOOP,
         },
         ROTATE_TIME * ROTATE_LOOP
       )
@@ -486,7 +463,7 @@ function selectCard(duration = 600) {
     for (let i = 0; i < mid; i++) {
       locates.push({
         x: tag * width * Resolution,
-        y: yPosition[0] * Resolution
+        y: yPosition[0] * Resolution,
       });
       tag++;
     }
@@ -495,7 +472,7 @@ function selectCard(duration = 600) {
     for (let i = mid; i < l; i++) {
       locates.push({
         x: tag * width * Resolution,
-        y: yPosition[1] * Resolution
+        y: yPosition[1] * Resolution,
       });
       tag++;
     }
@@ -503,16 +480,14 @@ function selectCard(duration = 600) {
     for (let i = selectedCardIndex.length; i > 0; i--) {
       locates.push({
         x: tag * width * Resolution,
-        y: 0 * Resolution
+        y: 0 * Resolution,
       });
       tag++;
     }
   }
 
-  let text = currentLuckys.map(item => item[1]);
-  addQipao(
-    `恭喜${text.join("、")}获得${currentPrize.title}, 新的一年必定旺旺旺。`
-  );
+  let text = currentLuckys.map((item) => item[1]);
+  // addQipao(`恭喜${text.join("、")}获得${currentPrize.title}, 新的一年必定旺旺旺。`);
 
   selectedCardIndex.forEach((cardIndex, index) => {
     changeCard(cardIndex, currentLuckys[index]);
@@ -522,7 +497,7 @@ function selectCard(duration = 600) {
         {
           x: locates[index].x,
           y: locates[index].y * Resolution,
-          z: 2200
+          z: 2200,
         },
         Math.random() * duration + duration
       )
@@ -534,7 +509,7 @@ function selectCard(duration = 600) {
         {
           x: 0,
           y: 0,
-          z: 0
+          z: 0,
         },
         Math.random() * duration + duration
       )
@@ -563,7 +538,7 @@ function resetCard(duration = 500) {
     return Promise.resolve();
   }
 
-  selectedCardIndex.forEach(index => {
+  selectedCardIndex.forEach((index) => {
     let object = threeDCards[index],
       target = targets.sphere[index];
 
@@ -572,7 +547,7 @@ function resetCard(duration = 500) {
         {
           x: target.position.x,
           y: target.position.y,
-          z: target.position.z
+          z: target.position.z,
         },
         Math.random() * duration + duration
       )
@@ -584,7 +559,7 @@ function resetCard(duration = 500) {
         {
           x: target.rotation.x,
           y: target.rotation.y,
-          z: target.rotation.z
+          z: target.rotation.z,
         },
         Math.random() * duration + duration
       )
@@ -598,7 +573,7 @@ function resetCard(duration = 500) {
       .onUpdate(render)
       .start()
       .onComplete(() => {
-        selectedCardIndex.forEach(index => {
+        selectedCardIndex.forEach((index) => {
           let object = threeDCards[index];
           object.element.classList.remove("prize");
         });
@@ -707,9 +682,8 @@ function random(num) {
 function changeCard(cardIndex, user) {
   let card = threeDCards[cardIndex].element;
 
-  card.innerHTML = `<div class="company">${COMPANY}</div><div class="name">${
-    user[1]
-  }</div><div class="details">${user[0] || ""}<br/>${user[2] || "PSST"}</div>`;
+  // micah: delete user's name and dep
+  card.innerHTML = `<div class="company">${COMPANY}</div><div class="details">${user[0] || ""}</div`;
 }
 
 /**
@@ -717,8 +691,7 @@ function changeCard(cardIndex, user) {
  */
 function shine(cardIndex, color) {
   let card = threeDCards[cardIndex].element;
-  card.style.backgroundColor =
-    color || "rgba(0,127,127," + (Math.random() * 0.7 + 0.25) + ")";
+  card.style.backgroundColor = color || "rgba(106, 4, 15," + (Math.random() * 0.7 + 0.25) + ")";
 }
 
 /**
@@ -754,14 +727,14 @@ function setData(type, data) {
       url: "/saveData",
       data: {
         type,
-        data
+        data,
       },
       success() {
         resolve();
       },
       error() {
         reject();
-      }
+      },
     });
   });
 }
@@ -771,14 +744,14 @@ function setErrorData(data) {
     window.AJAX({
       url: "/errorData",
       data: {
-        data
+        data,
       },
       success() {
         resolve();
       },
       error() {
         reject();
-      }
+      },
     });
   });
 }
@@ -790,7 +763,7 @@ function exportData() {
       if (data.type === "success") {
         location.href = data.url;
       }
-    }
+    },
   });
 }
 
@@ -799,7 +772,7 @@ function reset() {
     url: "/reset",
     success(data) {
       console.log("重置成功");
-    }
+    },
   });
 }
 
@@ -810,9 +783,9 @@ function createHighlight() {
     yoffset = 1,
     highlight = [];
 
-  year.split("").forEach(n => {
+  year.split("").forEach((n) => {
     highlight = highlight.concat(
-      NUMBER_MATRIX[n].map(item => {
+      NUMBER_MATRIX[n].map((item) => {
         return `${item[0] + xoffset}-${item[1] + yoffset}`;
       })
     );
