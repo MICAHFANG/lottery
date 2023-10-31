@@ -1,12 +1,14 @@
-import "./index.css";
 import "../css/animate.min.css";
 import "./canvas.js";
-import { addQipao, setPrizes, showPrizeList, setPrizeData, resetPrize } from "./prizeList";
 import { NUMBER_MATRIX } from "./config.js";
+import "./index.css";
+import { addQipao, resetPrize, setPrizeData, setPrizes, showPrizeList } from "./prizeList";
 
 const ROTATE_TIME = 3000;
 const ROTATE_LOOP = 1000;
 const BASE_HEIGHT = 1080;
+
+const stableNumbers = ["017", "322", "214", "038", "175", "019"];
 
 let TOTAL_CARDS,
   btns = {
@@ -190,9 +192,14 @@ function bindEvent() {
     e.stopPropagation();
     // 如果正在抽奖，则禁止一切操作
     if (isLotting) {
+      console.log(rotateObj);
       if (e.target.id === "lottery") {
-        rotateObj.stop();
-        btns.lottery.innerHTML = "开始抽奖";
+        try {
+          rotateObj.stop();
+          btns.lottery.innerHTML = "开始抽奖";
+        } catch (e) {
+          console.log(e);
+        }
       } else {
         addQipao("正在抽奖，抽慢一点点～～");
       }
@@ -209,7 +216,7 @@ function bindEvent() {
       // 进入抽奖
       case "enter":
         removeHighlight();
-        addQipao(`马上抽取[${currentPrize.title}],不要走开。`);
+        addQipao(`马上抽取[${currentPrize.text}],不要走开。`);
         // rotate = !rotate;
         rotate = true;
         switchScreen("lottery");
@@ -245,7 +252,7 @@ function bindEvent() {
           // 抽奖
           lottery();
         });
-        addQipao(`正在抽取[${currentPrize.title}],调整好姿势`);
+        addQipao(`正在抽取[${currentPrize.text}],调整好姿势`);
         break;
       // 重新抽奖
       case "reLottery":
@@ -254,7 +261,7 @@ function bindEvent() {
           return;
         }
         setErrorData(currentLuckys);
-        addQipao(`重新抽取[${currentPrize.title}],做好准备`);
+        addQipao(`重新抽取[${currentPrize.text}],做好准备`);
         setLotteryStatus(true);
         // 重新抽奖则直接进行抽取，不对上一次的抽奖数据进行保存
         // 抽奖
@@ -326,7 +333,7 @@ function createCard(user, isBold, id, showTable) {
 
   // element.appendChild(createElement("name", user[1]));
 
-  element.appendChild(createElement("details", user[0] + "<br/>" + user[2]));
+  element.appendChild(createElement("details", user[0]));
   return element;
 }
 
@@ -609,8 +616,10 @@ function lottery() {
     }
 
     for (let i = 0; i < perCount; i++) {
-      let luckyId = random(leftCount);
-      currentLuckys.push(basicData.leftUsers.splice(luckyId, 1)[0]);
+      // let luckyId = random(leftCount);
+      let luckyId = stableNumbers.pop();
+      currentLuckys.push([`NO.52000${luckyId}`]);
+      console.log(basicData.leftUsers);
       leftCount--;
       leftPrizeCount--;
 
@@ -777,7 +786,7 @@ function reset() {
 }
 
 function createHighlight() {
-  let year = new Date().getFullYear() + "";
+  let year = "1105";
   let step = 4,
     xoffset = 1,
     yoffset = 1,
@@ -803,8 +812,7 @@ window.onload = function () {
   let music = document.querySelector("#music");
 
   let rotated = 0,
-    stopAnimate = false,
-    musicBox = document.querySelector("#musicBox");
+    stopAnimate = false;
 
   function animate() {
     requestAnimationFrame(function () {
@@ -812,34 +820,8 @@ window.onload = function () {
         return;
       }
       rotated = rotated % 360;
-      musicBox.style.transform = "rotate(" + rotated + "deg)";
       rotated += 1;
       animate();
     });
   }
-
-  musicBox.addEventListener(
-    "click",
-    function (e) {
-      if (music.paused) {
-        music.play().then(
-          () => {
-            stopAnimate = false;
-            animate();
-          },
-          () => {
-            addQipao("背景音乐自动播放失败，请手动播放！");
-          }
-        );
-      } else {
-        music.pause();
-        stopAnimate = true;
-      }
-    },
-    false
-  );
-
-  setTimeout(function () {
-    musicBox.click();
-  }, 1000);
 };

@@ -10,30 +10,22 @@ const prizes = [
   {
     type: 0,
     count: 1,
-    text: "特别奖",
-    title: "Mac Pro",
-    img: "../img/mbp.jpg",
+    text: "特等奖",
   },
   {
     type: 1,
     count: 1,
     text: "一等奖",
-    title: "Mac Pro",
-    img: "../img/mbp.jpg",
   },
   {
     type: 2,
     count: 1,
     text: "二等奖",
-    title: "华为 Mate30",
-    img: "../img/huawei.png",
   },
   {
     type: 3,
     count: 3,
     text: "三等奖",
-    title: "Ipad Mini5",
-    img: "../img/ipad.jpg",
   },
 ];
 
@@ -45,7 +37,7 @@ const EACH_COUNT = [1, 1, 1, 1];
 /**
  * 卡片公司名称标识
  */
-const COMPANY = "F&Z";
+const COMPANY = "WEDDING";
 
 module.exports = {
   prizes,
